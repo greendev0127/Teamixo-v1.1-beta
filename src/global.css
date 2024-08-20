@@ -1,0 +1,15 @@
+/* scrollbar */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'simplebar-react/dist/simplebar.min.css';
+
+.react-tel-input .form-control:focus {
+  border-color: #000000 !important;
+  box-shadow: 0 0 0 1px #000000 !important;
+}
+
+.custom-map-autocomplete-input input {
+  color: #ffffff;
+}
