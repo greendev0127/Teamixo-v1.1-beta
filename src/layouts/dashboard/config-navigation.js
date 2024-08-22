@@ -54,6 +54,20 @@ export function useNavData() {
         items: [{ title: 'dashboard', path: paths.dashboard.root, icon: ICONS.dashboard }],
       },
 
+      // REPORTING
+      // ----------------------------------------------------------------------
+      {
+        subheader: 'reporting',
+        items: [
+          {
+            title: 'site report',
+            path: paths.dashboard.sitereport.root,
+            icon: ICONS.file,
+            children: [{ title: 'list', path: paths.dashboard.sitereport.root }],
+          },
+        ],
+      },
+
       // MANAGEMENT
       // ----------------------------------------------------------------------
       {

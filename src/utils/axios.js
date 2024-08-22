@@ -4,7 +4,7 @@ import { HOST_API, OFFLINE_API } from 'src/config-global';
 
 // ----------------------------------------------------------------------
 
-const axiosInstance = axios.create({ baseURL: HOST_API });
+const axiosInstance = axios.create({ baseURL: OFFLINE_API });
 
 axiosInstance.interceptors.response.use(
   (res) => res,
@@ -26,14 +26,22 @@ export const fetcher = async (args) => {
 // ----------------------------------------------------------------------
 
 export const endpoints = {
-  chat: '/api/chat',
-  kanban: '/api/kanban',
-  calendar: '/api/calendar',
   auth: {
     me: '/api/v1/server/auth/getMe',
     login: '/api/v1/server/auth/login',
     register: '/api/v1/server/auth/signup',
     verify: '/api/v1/server/auth/verify-email',
+  },
+  staff: {
+    list: '/api/v1/server/staff/list',
+    get: '/api/v1/server/staff/getstaff',
+    create: '/api/v1/server/staff/create',
+    update: '/api/v1/server/staff/update',
+    delete: '/api/v1/server/staff/delete',
+    updaterole: '/api/v1/server/staff/update_role',
+  },
+  report: {
+    list: '/api/v1/server/report/list',
   },
   company: {
     create: '/api/v1/server/company/create',
@@ -50,29 +58,5 @@ export const endpoints = {
     create: '/api/v1/server/department/create',
     update: '/api/v1/server/department/update',
     delete: '/api/v1/server/department/delete',
-  },
-  staff: {
-    list: '/api/v1/server/staff/list',
-    get: '/api/v1/server/staff/getstaff',
-    create: '/api/v1/server/staff/create',
-    update: '/api/v1/server/staff/update',
-    delete: '/api/v1/server/staff/delete',
-    updaterole: '/api/v1/server/staff/update_role',
-  },
-  mail: {
-    list: '/api/mail/list',
-    details: '/api/mail/details',
-    labels: '/api/mail/labels',
-  },
-  post: {
-    list: '/api/post/list',
-    details: '/api/post/details',
-    latest: '/api/post/latest',
-    search: '/api/post/search',
-  },
-  product: {
-    list: '/api/product/list',
-    details: '/api/product/details',
-    search: '/api/product/search',
   },
 };

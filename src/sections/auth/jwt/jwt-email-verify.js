@@ -11,16 +11,8 @@ import { LoadingButton } from '@mui/lab';
 import { useRouter, useSearchParams } from 'src/routes/hooks';
 import axios, { endpoints } from 'src/utils/axios';
 
-import { City, Country } from 'country-state-city';
-import { useEffect, useState } from 'react';
-import PhoneInput from 'react-phone-input-2';
+import { useState } from 'react';
 
-import 'react-phone-input-2/lib/material.css';
-
-import CountrySelect from 'src/components/register/CountrySelect';
-import CitySelect from 'src/components/register/CitySelect';
-import { validateEmail } from 'src/utils/validate-email';
-import { REGISTER_STEP } from 'src/constant/common';
 import { useAuthContext } from 'src/auth/hooks';
 import { PATH_AFTER_LOGIN } from 'src/config-global';
 

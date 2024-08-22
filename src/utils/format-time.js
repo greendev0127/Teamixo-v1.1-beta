@@ -25,3 +25,10 @@ export function fToNow(date) {
       })
     : '';
 }
+
+export function convertMillisToTime(millis) {
+  let hours = Math.floor(millis / 3600000); // 1 Hour = 36000 Milliseconds
+  let minutes = Math.floor((millis % 3600000) / 60000); // 1 Minutes = 60000 Milliseconds
+
+  return `${hours} Hrs ${minutes} Mins`;
+}
