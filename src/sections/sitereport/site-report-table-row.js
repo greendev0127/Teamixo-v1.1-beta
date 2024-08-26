@@ -23,6 +23,7 @@ import Iconify from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
 import { convertMillisToTime } from 'src/utils/format-time';
+import { color } from 'framer-motion';
 
 // ----------------------------------------------------------------------
 
@@ -166,13 +167,14 @@ export default function SiteReportTableRow({
 
   const renderSecondary = (
     <TableRow>
-      <TableCell sx={{ p: 0, border: 'none' }} colSpan={8}>
+      <TableCell sx={{ p: 0, border: 'none' }} colSpan={9}>
         <Collapse
           in={collapse.value}
           timeout="auto"
           unmountOnExit
           sx={{ bgcolor: 'background.neutral' }}
         >
+          {console.log(sub_data)}
           <Stack component={Paper} sx={{ m: 1.5 }}>
             {sub_data.map((item) => (
               <Stack
@@ -186,15 +188,33 @@ export default function SiteReportTableRow({
                   },
                 }}
               >
-                <Avatar
+                {/* <Avatar
                   src={item.coverUrl}
                   variant="rounded"
                   sx={{ width: 48, height: 48, mr: 2 }}
-                />
+                /> */}
+
+                <Avatar
+                  variant="rounded"
+                  sx={{ width: 48, height: 48, mr: 2, bgcolor: 'lightblue' }}
+                >
+                  <Iconify
+                    icon={
+                      (item.status === 'start' && 'ic:baseline-work') ||
+                      (item.status === 'break' && 'mynaui:coffee') ||
+                      (item.status === 'end' && 'tabler:home-filled')
+                    }
+                    width={32}
+                  />
+                </Avatar>
 
                 <ListItemText
-                  primary={item.name}
-                  secondary={item.sku}
+                  primary={
+                    (item.status === 'start' && 'Start work') ||
+                    (item.status === 'break' && 'Breaking') ||
+                    (item.status === 'end' && 'End work')
+                  }
+                  secondary={format(new Date(item.start_date), 'dd/MM/yyyy HH:mm')}
                   primaryTypographyProps={{
                     typography: 'body2',
                   }}
@@ -204,10 +224,6 @@ export default function SiteReportTableRow({
                     mt: 0.5,
                   }}
                 />
-
-                <Box>x{item.quantity}</Box>
-
-                <Box sx={{ width: 110, textAlign: 'right' }}>{fCurrency(item.price)}</Box>
               </Stack>
             ))}
           </Stack>
