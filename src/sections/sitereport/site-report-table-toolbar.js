@@ -9,9 +9,12 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
+import { useRouter } from 'src/routes/hooks';
+
 import Iconify from 'src/components/iconify';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
 import { Autocomplete, Box, Typography } from '@mui/material';
+import { paths } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -26,6 +29,7 @@ export default function SiteReportTableToolbar({
   setSelectService,
   selectService,
 }) {
+  const router = useRouter();
   const popover = usePopover();
 
   const handleFilterName = useCallback(
@@ -139,29 +143,21 @@ export default function SiteReportTableToolbar({
       >
         <MenuItem
           onClick={() => {
+            router.push(paths.dashboard.sitereport.create);
+            popover.onClose();
+          }}
+        >
+          <Iconify icon="solar:document-add-bold" />
+          Add Report
+        </MenuItem>
+
+        <MenuItem
+          onClick={() => {
             popover.onClose();
           }}
         >
           <Iconify icon="solar:printer-minimalistic-bold" />
           Print
-        </MenuItem>
-
-        <MenuItem
-          onClick={() => {
-            popover.onClose();
-          }}
-        >
-          <Iconify icon="solar:import-bold" />
-          Import
-        </MenuItem>
-
-        <MenuItem
-          onClick={() => {
-            popover.onClose();
-          }}
-        >
-          <Iconify icon="solar:export-bold" />
-          Export
         </MenuItem>
       </CustomPopover>
     </>

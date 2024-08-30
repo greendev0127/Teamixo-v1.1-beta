@@ -24,6 +24,10 @@ import { ConfirmDialog } from 'src/components/custom-dialog';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
 import { convertMillisToTime } from 'src/utils/format-time';
 import { color } from 'framer-motion';
+import { LoadingButton } from '@mui/lab';
+import axiosInstance, { endpoints } from 'src/utils/axios';
+import { useStore } from 'src/store/commonStore';
+import { NOTIFICATION_TYPE } from 'src/constant/common';
 
 // ----------------------------------------------------------------------
 
@@ -36,26 +40,44 @@ export default function SiteReportTableRow({
   onDeleteRow,
   staff,
 }) {
-  const {
-    sub_data,
-    status,
-    break_time,
-    date,
-    end_time,
-    id,
-    key,
-    name,
-    no,
-    site_id,
-    staff_id,
-    start_time,
-    track_type,
-    work_time,
-  } = row;
+  const { id, sub_data, status, break_time, end_time, no, start_time, work_time } = row;
+
+  const { setNotification } = useStore();
 
   const confirm = useBoolean();
 
+  const deleteLoading = useBoolean();
+
   const collapse = useBoolean();
+
+  const handleDeleteReport = async () => {
+    try {
+      deleteLoading.onTrue();
+
+      const response = await axiosInstance.post(endpoints.report.delete, {
+        tableName: `record_${staff.organization_id}`,
+        track_id: id,
+      });
+
+      setNotification({
+        state: new Date().getTime(),
+        type: NOTIFICATION_TYPE.SUCCESS,
+        message: response.data.message,
+      });
+
+      onDeleteRow();
+    } catch (error) {
+      console.log('Error is occurred: ', error.message);
+      setNotification({
+        state: new Date().getTime(),
+        type: NOTIFICATION_TYPE.ERROR,
+        message: error.message,
+      });
+    } finally {
+      confirm.onFalse();
+      deleteLoading.onFalse();
+    }
+  };
 
   const popover = usePopover();
 
@@ -174,7 +196,6 @@ export default function SiteReportTableRow({
           unmountOnExit
           sx={{ bgcolor: 'background.neutral' }}
         >
-          {console.log(sub_data)}
           <Stack component={Paper} sx={{ m: 1.5 }}>
             {sub_data.map((item) => (
               <Stack
@@ -261,8 +282,8 @@ export default function SiteReportTableRow({
             popover.onClose();
           }}
         >
-          <Iconify icon="solar:eye-bold" />
-          View
+          <Iconify icon="solar:pen-bold" />
+          Edit
         </MenuItem>
       </CustomPopover>
 
@@ -272,9 +293,14 @@ export default function SiteReportTableRow({
         title="Delete"
         content="Are you sure want to delete?"
         action={
-          <Button variant="contained" color="error" onClick={onDeleteRow}>
+          <LoadingButton
+            variant="contained"
+            color="error"
+            onClick={handleDeleteReport}
+            loading={deleteLoading.value}
+          >
             Delete
-          </Button>
+          </LoadingButton>
         }
       />
     </>

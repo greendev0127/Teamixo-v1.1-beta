@@ -116,8 +116,8 @@ export default function StaffTableRow({ row, selected, onEditRow, onSelectRow, o
                   !clocked_state
                     ? 'tabler:home-filled'
                     : break_state
-                    ? 'mynaui:coffee'
-                    : 'ic:baseline-work'
+                      ? 'mynaui:coffee'
+                      : 'ic:baseline-work'
                 }
               />
             }

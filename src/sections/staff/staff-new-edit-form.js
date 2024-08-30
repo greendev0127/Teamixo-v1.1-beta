@@ -31,7 +31,15 @@ import FormProvider, {
   RHFAutocomplete,
   RHFSelect,
 } from 'src/components/hook-form';
-import { Divider, InputAdornment, MenuItem, Radio, RadioGroup, TextField } from '@mui/material';
+import {
+  alpha,
+  Divider,
+  InputAdornment,
+  MenuItem,
+  Radio,
+  RadioGroup,
+  TextField,
+} from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import { STAFF_TYPE_OPTIONS } from 'src/_mock/_staff';
 import { PinCodeGeneration } from 'src/utils/pin-code';
@@ -41,6 +49,7 @@ import { useStore } from 'src/store/commonStore';
 import { NOTIFICATION_TYPE } from 'src/constant/common';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import { useBoolean } from 'src/hooks/use-boolean';
+import { RouterLink } from 'src/routes/components';
 
 // ----------------------------------------------------------------------
 
@@ -259,7 +268,35 @@ export default function StaffNewEditForm({ currentUser, departmentData }) {
   };
 
   if (!departmentData.length) {
-    return <></>;
+    return (
+      <Box
+        sx={{
+          mt: 5,
+          width: 1,
+          height: 320,
+          borderRadius: 2,
+          bgcolor: (theme) => alpha(theme.palette.grey[500], 0.04),
+          border: (theme) => `dashed 1px ${theme.palette.divider}`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Stack spacing={2} alignItems={'center'}>
+          <Typography variant="h4">Not found any department data.</Typography>
+          <Button
+            component={RouterLink}
+            href={paths.dashboard.department.root}
+            variant="contained"
+            sx={{
+              width: 'fit-content',
+            }}
+          >
+            Create Department
+          </Button>
+        </Stack>
+      </Box>
+    );
   }
 
   return (

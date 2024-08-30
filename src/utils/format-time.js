@@ -32,3 +32,10 @@ export function convertMillisToTime(millis) {
 
   return `${hours} Hrs ${minutes} Mins`;
 }
+
+export function timeCalc(end, start) {
+  return (
+    (Math.floor(new Date(end).getTime() / 1000) - Math.floor(new Date(start).getTime() / 1000)) *
+    1000
+  );
+}

@@ -3,3 +3,5 @@ export const REPORT_STATUS_OPTIONS = [
   { value: 'start', label: 'Start' },
   { value: 'end', label: 'Done' },
 ];
+
+export const REPORT_TIME_STATUS = ['start', 'break', 'restart', 'end'];

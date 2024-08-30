@@ -63,7 +63,10 @@ export function useNavData() {
             title: 'site report',
             path: paths.dashboard.sitereport.root,
             icon: ICONS.file,
-            children: [{ title: 'list', path: paths.dashboard.sitereport.root }],
+            children: [
+              { title: 'list', path: paths.dashboard.sitereport.root },
+              { title: 'Create', path: paths.dashboard.sitereport.create },
+            ],
           },
         ],
       },

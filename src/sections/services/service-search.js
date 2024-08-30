@@ -3,7 +3,6 @@ import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
 
 import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import InputAdornment from '@mui/material/InputAdornment';

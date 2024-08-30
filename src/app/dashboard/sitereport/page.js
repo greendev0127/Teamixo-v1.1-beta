@@ -3,9 +3,9 @@ import SiteReportListView from 'src/sections/sitereport/view/site-report-list-vi
 // ----------------------------------------------------------------------
 
 export const metadata = {
-  title: 'Dashboard: Order List',
+  title: 'Dashboard: Site Report List',
 };
 
-export default function OrderListPage() {
+export default function SiteReportPage() {
   return <SiteReportListView />;
 }

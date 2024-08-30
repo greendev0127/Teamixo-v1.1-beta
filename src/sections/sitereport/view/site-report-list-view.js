@@ -45,7 +45,6 @@ import { tokenDecode } from 'src/auth/context/jwt/utils';
 import axiosInstance, { endpoints } from 'src/utils/axios';
 import Loading from 'src/app/dashboard/loading';
 import { formatReportData } from 'src/utils/format-report-data';
-import label from 'src/components/label';
 import { REPORT_STATUS_OPTIONS } from 'src/_mock/_report';
 
 // ----------------------------------------------------------------------
@@ -85,6 +84,8 @@ export default function SiteReportListView() {
 
   const [tableData, setTableData] = useState([]);
 
+  const [refresh, setRefresh] = useState(new Date());
+
   const [staffs, setStaffs] = useState([]);
   const [services, setServices] = useState([]);
   const [selectService, setSelectService] = useState(null);
@@ -108,6 +109,10 @@ export default function SiteReportListView() {
           organization_id: organizationId,
         });
 
+        setServices(services.data.body);
+        setSelectService(services.data.body[0]);
+        setStaffs(staffs.data.body);
+
         const reportData = await axiosInstance.post(endpoints.report.list, {
           tableName: `record_${organizationId}`,
         });
@@ -115,10 +120,6 @@ export default function SiteReportListView() {
         const initReportData = formatReportData(reportData.data.body.Items);
 
         setTableData(initReportData);
-
-        setServices(services.data.body);
-        setSelectService(services.data.body[0]);
-        setStaffs(staffs.data.body);
       } catch (error) {
         console.log('Error is occurred: ', error.message);
       } finally {
@@ -127,7 +128,7 @@ export default function SiteReportListView() {
     }
 
     getInitData();
-  }, []);
+  }, [refresh]);
 
   const dateError =
     filters.startDate && filters.endDate
@@ -200,7 +201,7 @@ export default function SiteReportListView() {
 
   const handleViewRow = useCallback(
     (id) => {
-      router.push(paths.dashboard.sitereport.root);
+      router.push(paths.dashboard.sitereport.edit(id));
     },
     [router]
   );
@@ -359,7 +360,7 @@ export default function SiteReportListView() {
                         staff={staffs.find((item) => item.id === row.staff_id)}
                         selected={table.selected.includes(row.id)}
                         onSelectRow={() => table.onSelectRow(row.id)}
-                        onDeleteRow={() => handleDeleteRow(row.id)}
+                        onDeleteRow={() => setRefresh(new Date().getTime())}
                         onViewRow={() => handleViewRow(row.id)}
                       />
                     ))}
