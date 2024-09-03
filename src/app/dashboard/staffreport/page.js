@@ -1,4 +1,4 @@
-import { SiteReportListView } from 'src/sections/sitereport/view';
+import { StaffReportListView } from 'src/sections/staffreport/view';
 
 // ----------------------------------------------------------------------
 
@@ -7,5 +7,5 @@ export const metadata = {
 };
 
 export default function SiteReportPage() {
-  return <SiteReportListView />;
+  return <StaffReportListView />;
 }

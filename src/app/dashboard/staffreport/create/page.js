@@ -1,6 +1,6 @@
-import { SiteReportCreatView } from 'src/sections/sitereport/view';
-
 // ----------------------------------------------------------------------
+
+import { SiteReportCreatView } from 'src/sections/staffreport/view';
 
 export const metadata = {
   title: 'Dashboard: Create a new report',

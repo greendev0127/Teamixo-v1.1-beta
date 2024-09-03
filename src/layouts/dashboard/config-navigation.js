@@ -68,6 +68,15 @@ export function useNavData() {
               { title: 'Create', path: paths.dashboard.sitereport.create },
             ],
           },
+          {
+            title: 'staff report',
+            path: paths.dashboard.staffreport.root,
+            icon: ICONS.file,
+            children: [
+              { title: 'list', path: paths.dashboard.staffreport.root },
+              { title: 'Create', path: paths.dashboard.staffreport.create },
+            ],
+          },
         ],
       },
 

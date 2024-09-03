@@ -38,9 +38,10 @@ import {
   TablePaginationCustom,
 } from 'src/components/table';
 
-import SiteReportTableRow from '../site-report-table-row';
-import SiteReportTableToolbar from '../site-report-table-toolbar';
-import SiteReportTableFiltersResult from '../site-report-table-filters-result';
+import StaffReportTableRow from '../staff-report-table-row';
+import StaffReportTableToolbar from '../staff-report-table-toolbar';
+import StaffReportTableFiltersResult from '../staff-report-table-filters-result';
+
 import { tokenDecode } from 'src/auth/context/jwt/utils';
 import axiosInstance, { endpoints } from 'src/utils/axios';
 import Loading from 'src/app/dashboard/loading';
@@ -53,9 +54,9 @@ const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...REPORT_STATUS_OPTIONS
 
 const TABLE_HEAD = [
   { id: 'no', label: 'No', width: 80 },
-  { id: 'name', label: 'Customer' },
-  { id: 'totalQuantity', label: 'Start Time', width: 120, align: 'center' },
-  { id: 'totalAmount', label: 'End Time', width: 140 },
+  { id: 'name', label: 'Service' },
+  { id: 'start_time', label: 'Start Time', width: 120, align: 'center' },
+  { id: 'end_time', label: 'End Time', width: 140 },
   { id: 'work_time', label: 'Work Time', width: 140 },
   { id: 'break_time', label: 'Break Time', width: 140 },
   { id: 'status', label: 'Status', width: 110 },
@@ -71,7 +72,7 @@ const defaultFilters = {
 
 // ----------------------------------------------------------------------
 
-export default function SiteReportListView() {
+export default function StaffReportListView() {
   const table = useTable({ defaultOrderBy: 'orderNumber' });
 
   const settings = useSettingsContext();
@@ -89,6 +90,7 @@ export default function SiteReportListView() {
   const [staffs, setStaffs] = useState([]);
   const [services, setServices] = useState([]);
   const [selectService, setSelectService] = useState(null);
+  const [selectStaff, setSelectStaff] = useState(null);
 
   const [filters, setFilters] = useState(defaultFilters);
 
@@ -110,8 +112,8 @@ export default function SiteReportListView() {
         });
 
         setServices(services.data.body);
-        setSelectService(services.data.body[0]);
         setStaffs(staffs.data.body);
+        setSelectStaff(staffs.data.body[0]);
 
         const reportData = await axiosInstance.post(endpoints.report.list, {
           tableName: `record_${organizationId}`,
@@ -138,7 +140,7 @@ export default function SiteReportListView() {
   const dataFiltered = applyFilter({
     inputData: tableData,
     comparator: getComparator(table.order, table.orderBy),
-    service: selectService,
+    staff: selectStaff,
     filters,
     dateError,
   });
@@ -166,10 +168,10 @@ export default function SiteReportListView() {
     [table]
   );
 
-  const handleChangeService = useCallback(
-    (service) => {
+  const handleChangeStaff = useCallback(
+    (staff) => {
       table.onResetPage();
-      setSelectService(service);
+      setSelectStaff(staff);
     },
     [table]
   );
@@ -191,7 +193,7 @@ export default function SiteReportListView() {
 
   const handleViewRow = useCallback(
     (id) => {
-      router.push(paths.dashboard.sitereport.edit(id));
+      router.push(paths.dashboard.staffreport.edit(id));
     },
     [router]
   );
@@ -219,9 +221,9 @@ export default function SiteReportListView() {
             },
             {
               name: 'Report',
-              href: paths.dashboard.sitereport.root,
+              href: paths.dashboard.staffreport.root,
             },
-            { name: 'Site' },
+            { name: 'Staff' },
           ]}
           sx={{
             mb: { xs: 3, md: 5 },
@@ -255,19 +257,19 @@ export default function SiteReportListView() {
                     }
                   >
                     {tab.value === 'all' &&
-                      tableData.filter((item) => item.site_id === selectService.id).length}
+                      tableData.filter((item) => item.staff_id === selectStaff.id).length}
                     {tab.value === 'start' &&
                       tableData.filter(
-                        (item) => item.site_id === selectService.id && item.status === 'start'
+                        (item) => item.staff_id === selectStaff.id && item.status === 'start'
                       ).length}
 
                     {tab.value === 'break' &&
                       tableData.filter(
-                        (item) => item.site_id === selectService.id && item.status === 'break'
+                        (item) => item.staff_id === selectStaff.id && item.status === 'break'
                       ).length}
                     {tab.value === 'end' &&
                       tableData.filter(
-                        (item) => item.site_id === selectService.id && item.status === 'end'
+                        (item) => item.staff_id === selectStaff.id && item.status === 'end'
                       ).length}
                   </Label>
                 }
@@ -275,20 +277,20 @@ export default function SiteReportListView() {
             ))}
           </Tabs>
 
-          <SiteReportTableToolbar
+          <StaffReportTableToolbar
             filters={filters}
             onFilters={handleFilters}
             //
             canReset={canReset}
             onResetFilters={handleResetFilters}
             //
-            services={services}
-            setSelectService={handleChangeService}
-            selectService={selectService}
+            staffs={staffs}
+            setSelectStaff={handleChangeStaff}
+            selectStaff={selectStaff}
           />
 
           {canReset && (
-            <SiteReportTableFiltersResult
+            <StaffReportTableFiltersResult
               filters={filters}
               onFilters={handleFilters}
               //
@@ -343,11 +345,11 @@ export default function SiteReportListView() {
                       table.page * table.rowsPerPage + table.rowsPerPage
                     )
                     .map((row, index) => (
-                      <SiteReportTableRow
+                      <StaffReportTableRow
                         key={row.id}
                         index={index}
                         row={row}
-                        staff={staffs.find((item) => item.id === row.staff_id)}
+                        service={services.find((item) => item.id === row.site_id)}
                         selected={table.selected.includes(row.id)}
                         onSelectRow={() => table.onSelectRow(row.id)}
                         onDeleteRow={() => setRefresh(new Date().getTime())}
@@ -407,7 +409,7 @@ export default function SiteReportListView() {
 
 // ----------------------------------------------------------------------
 
-function applyFilter({ inputData, comparator, service, filters, dateError }) {
+function applyFilter({ inputData, comparator, staff, filters, dateError }) {
   const { status, name, startDate, endDate } = filters;
 
   const stabilizedThis = inputData.map((el, index) => [el, index]);
@@ -420,7 +422,7 @@ function applyFilter({ inputData, comparator, service, filters, dateError }) {
 
   inputData = stabilizedThis.map((el) => el[0]);
 
-  inputData = inputData.filter((item) => item.site_id === service.id);
+  inputData = inputData.filter((item) => item.staff_id === staff.id);
 
   if (name) {
     inputData = inputData.filter(

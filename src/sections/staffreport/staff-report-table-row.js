@@ -23,22 +23,22 @@ import Iconify from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
 import { convertMillisToTime } from 'src/utils/format-time';
-import { color } from 'framer-motion';
 import { LoadingButton } from '@mui/lab';
 import axiosInstance, { endpoints } from 'src/utils/axios';
 import { useStore } from 'src/store/commonStore';
 import { NOTIFICATION_TYPE } from 'src/constant/common';
+import { Typography } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
-export default function SiteReportTableRow({
+export default function StaffReportTableRow({
   row,
   index,
   selected,
   onViewRow,
   onSelectRow,
   onDeleteRow,
-  staff,
+  service,
 }) {
   const { id, sub_data, status, break_time, end_time, no, start_time, work_time } = row;
 
@@ -55,7 +55,7 @@ export default function SiteReportTableRow({
       deleteLoading.onTrue();
 
       const response = await axiosInstance.post(endpoints.report.delete, {
-        tableName: `record_${staff.organization_id}`,
+        tableName: `record_${service.organization_id}`,
         track_id: id,
       });
 
@@ -101,18 +101,8 @@ export default function SiteReportTableRow({
         </Box>
       </TableCell>
 
-      <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
-        <Avatar alt={staff.name} src={staff.avatar} sx={{ mr: 2 }} />
-
-        <ListItemText
-          primary={staff.name}
-          secondary={staff.email}
-          primaryTypographyProps={{ typography: 'body2' }}
-          secondaryTypographyProps={{
-            component: 'span',
-            color: 'text.disabled',
-          }}
-        />
+      <TableCell>
+        <Typography>{service.name}</Typography>
       </TableCell>
 
       <TableCell>
@@ -309,7 +299,7 @@ export default function SiteReportTableRow({
   );
 }
 
-SiteReportTableRow.propTypes = {
+StaffReportTableRow.propTypes = {
   onDeleteRow: PropTypes.func,
   onSelectRow: PropTypes.func,
   onViewRow: PropTypes.func,

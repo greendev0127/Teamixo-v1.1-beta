@@ -17,11 +17,11 @@ import axiosInstance, { endpoints } from 'src/utils/axios';
 import Loading from 'src/app/dashboard/loading';
 
 import { tokenDecode } from 'src/auth/context/jwt/utils';
-import SiteReportNewEditForm from '../site-report-new-edit-form';
+import StaffReportNewEditForm from '../staff-report-new-edit-form';
 
 // ----------------------------------------------------------------------
 
-export default function SiteReportEditView({ id }) {
+export default function StaffReportEditView({ id }) {
   const settings = useSettingsContext();
 
   const loading = useBoolean();
@@ -90,11 +90,11 @@ export default function SiteReportEditView({ id }) {
           mb: { xs: 3, md: 5 },
         }}
       />
-      <SiteReportNewEditForm currentReport={currentTrack} track_id={id} />
+      <StaffReportNewEditForm currentReport={currentTrack} track_id={id} />
     </Container>
   );
 }
 
-SiteReportEditView.propTypes = {
+StaffReportEditView.propTypes = {
   id: PropTypes.string,
 };

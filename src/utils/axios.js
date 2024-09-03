@@ -44,6 +44,7 @@ export const endpoints = {
     list: '/api/v1/server/report/list',
     delete: '/api/v1/server/report/delete',
     create: '/api/v1/server/report/add_track',
+    gettrack: '/api/v1/server/report/get_track',
   },
   company: {
     create: '/api/v1/server/company/create',

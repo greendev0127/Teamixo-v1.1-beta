@@ -30,7 +30,7 @@ import { paths } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
 
-export default function SiteReportNewEditForm({ currentReport, track_id }) {
+export default function StaffReportNewEditForm({ currentReport, track_id }) {
   const router = useRouter();
 
   const { setNotification } = useStore();
@@ -249,7 +249,7 @@ export default function SiteReportNewEditForm({ currentReport, track_id }) {
 
       reset();
 
-      router.push(paths.dashboard.sitereport.root);
+      router.push(paths.dashboard.staffreport.root);
 
       setNotification({
         state: new Date().getTime(),
@@ -481,6 +481,6 @@ export default function SiteReportNewEditForm({ currentReport, track_id }) {
   );
 }
 
-SiteReportNewEditForm.propTypes = {
+StaffReportNewEditForm.propTypes = {
   currentReport: PropTypes.object,
 };

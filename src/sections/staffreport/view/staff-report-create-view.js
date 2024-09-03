@@ -6,7 +6,7 @@ import { paths } from 'src/routes/paths';
 
 import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
-import SiteReportNewEditForm from '../site-report-new-edit-form';
+import StaffReportNewEditForm from '../staff-report-new-edit-form';
 
 // ----------------------------------------------------------------------
 
@@ -33,7 +33,7 @@ export default function StaffReportCreateView() {
         }}
       />
 
-      <SiteReportNewEditForm />
+      <StaffReportNewEditForm />
     </Container>
   );
 }
