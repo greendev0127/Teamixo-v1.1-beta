@@ -107,7 +107,6 @@ export function useNavData() {
             title: 'department',
             path: paths.dashboard.department.root,
             icon: ICONS.department,
-            children: [{ title: 'list', path: paths.dashboard.department.root }],
           },
         ],
       },
