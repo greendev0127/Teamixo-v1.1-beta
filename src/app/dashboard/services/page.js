@@ -1,4 +1,3 @@
-import FourView from 'src/sections/four/view';
 import { ServiceListView } from 'src/sections/services/view';
 
 // ----------------------------------------------------------------------
