@@ -27,6 +27,7 @@
     "@mui/x-data-grid": "^7.11.1",
     "@mui/x-date-pickers": "^7.11.1",
     "@react-google-maps/api": "^2.19.3",
+    "@react-pdf/renderer": "^3.4.4",
     "autosuggest-highlight": "^3.3.4",
     "axios": "^1.5.1",
     "country-state-city": "^3.2.1",

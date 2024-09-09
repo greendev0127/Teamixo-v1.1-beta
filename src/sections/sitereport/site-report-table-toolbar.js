@@ -13,8 +13,10 @@ import { useRouter } from 'src/routes/hooks';
 
 import Iconify from 'src/components/iconify';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
-import { Autocomplete, Box, Typography } from '@mui/material';
+import { Autocomplete, Box, Dialog, DialogActions, Typography } from '@mui/material';
 import { paths } from 'src/routes/paths';
+import { PDFViewer } from '@react-pdf/renderer';
+import InvoicePDF from './site-report-invoice-pdf';
 
 // ----------------------------------------------------------------------
 
@@ -160,6 +162,25 @@ export default function SiteReportTableToolbar({
           Print
         </MenuItem>
       </CustomPopover>
+      <Dialog fullScreen open={view.value}>
+        <Box sx={{ height: 1, display: 'flex', flexDirection: 'column' }}>
+          <DialogActions
+            sx={{
+              p: 1.5,
+            }}
+          >
+            <Button color="inherit" variant="contained" onClick={view.onFalse}>
+              Close
+            </Button>
+          </DialogActions>
+
+          <Box sx={{ flexGrow: 1, height: 1, overflow: 'hidden' }}>
+            <PDFViewer width="100%" height="100%" style={{ border: 'none' }}>
+              <InvoicePDF invoice={invoice} currentStatus={currentStatus} />
+            </PDFViewer>
+          </Box>
+        </Box>
+      </Dialog>
     </>
   );
 }
