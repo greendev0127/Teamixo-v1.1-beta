@@ -15,8 +15,9 @@ import Iconify from 'src/components/iconify';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
 import { Autocomplete, Box, Dialog, DialogActions, Typography } from '@mui/material';
 import { paths } from 'src/routes/paths';
-import { PDFViewer } from '@react-pdf/renderer';
+import { PDFViewer, PDFDownloadLink } from '@react-pdf/renderer';
 import InvoicePDF from './site-report-invoice-pdf';
+import { useBoolean } from 'src/hooks/use-boolean';
 
 // ----------------------------------------------------------------------
 
@@ -30,9 +31,14 @@ export default function SiteReportTableToolbar({
   services,
   setSelectService,
   selectService,
+  //
+  invoice,
+  staffs,
 }) {
   const router = useRouter();
   const popover = usePopover();
+
+  const view = useBoolean();
 
   const handleFilterName = useCallback(
     (event) => {
@@ -136,6 +142,7 @@ export default function SiteReportTableToolbar({
           </Button>
         )}
       </Stack>
+      {console.log(filters)}
 
       <CustomPopover
         open={popover.open}
@@ -155,12 +162,35 @@ export default function SiteReportTableToolbar({
 
         <MenuItem
           onClick={() => {
+            view.onTrue();
             popover.onClose();
           }}
         >
-          <Iconify icon="solar:printer-minimalistic-bold" />
-          Print
+          <Iconify icon="solar:eye-bold" />
+          View
         </MenuItem>
+
+        <PDFDownloadLink
+          document={
+            <InvoicePDF
+              invoice={invoice}
+              staffs={staffs}
+              selectService={selectService}
+              filters={filters}
+            />
+          }
+          fileName={selectService?.name}
+          style={{ textDecoration: 'none' }}
+        >
+          <MenuItem
+            onClick={() => {
+              popover.onClose();
+            }}
+          >
+            <Iconify icon="solar:printer-minimalistic-bold" />
+            Print
+          </MenuItem>
+        </PDFDownloadLink>
       </CustomPopover>
       <Dialog fullScreen open={view.value}>
         <Box sx={{ height: 1, display: 'flex', flexDirection: 'column' }}>
@@ -176,7 +206,12 @@ export default function SiteReportTableToolbar({
 
           <Box sx={{ flexGrow: 1, height: 1, overflow: 'hidden' }}>
             <PDFViewer width="100%" height="100%" style={{ border: 'none' }}>
-              <InvoicePDF invoice={invoice} currentStatus={currentStatus} />
+              <InvoicePDF
+                invoice={invoice}
+                staffs={staffs}
+                selectService={selectService}
+                filters={filters}
+              />
             </PDFViewer>
           </Box>
         </Box>

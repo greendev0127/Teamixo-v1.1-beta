@@ -285,6 +285,9 @@ export default function SiteReportListView() {
             services={services}
             setSelectService={handleChangeService}
             selectService={selectService}
+            //
+            invoice={dataFiltered}
+            staffs={staffs}
           />
 
           {canReset && (

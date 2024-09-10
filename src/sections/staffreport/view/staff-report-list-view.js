@@ -287,6 +287,9 @@ export default function StaffReportListView() {
             staffs={staffs}
             setSelectStaff={handleChangeStaff}
             selectStaff={selectStaff}
+            //
+            invoice={dataFiltered}
+            services={services}
           />
 
           {canReset && (

@@ -13,8 +13,11 @@ import { useRouter } from 'src/routes/hooks';
 
 import Iconify from 'src/components/iconify';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
-import { Autocomplete, Avatar, Box, Typography } from '@mui/material';
+import { Autocomplete, Avatar, Box, Dialog, DialogActions, Typography } from '@mui/material';
 import { paths } from 'src/routes/paths';
+import { useBoolean } from 'src/hooks/use-boolean';
+import { PDFViewer, PDFDownloadLink } from '@react-pdf/renderer';
+import InvoicePDF from './staff-report-invoice-pdf';
 
 // ----------------------------------------------------------------------
 
@@ -28,16 +31,14 @@ export default function StaffReportTableToolbar({
   staffs,
   setSelectStaff,
   selectStaff,
+  //
+  invoice,
+  services,
 }) {
   const router = useRouter();
   const popover = usePopover();
 
-  const handleFilterName = useCallback(
-    (event) => {
-      onFilters('name', event.target.value);
-    },
-    [onFilters]
-  );
+  const view = useBoolean();
 
   const handleFilterStartDate = useCallback(
     (newValue) => {
@@ -164,13 +165,60 @@ export default function StaffReportTableToolbar({
 
         <MenuItem
           onClick={() => {
+            view.onTrue();
             popover.onClose();
           }}
         >
-          <Iconify icon="solar:printer-minimalistic-bold" />
-          Print
+          <Iconify icon="solar:eye-bold" />
+          View
         </MenuItem>
+
+        <PDFDownloadLink
+          document={
+            <InvoicePDF
+              invoice={invoice}
+              services={services}
+              selectStaff={selectStaff}
+              filters={filters}
+            />
+          }
+          fileName={selectStaff?.name}
+          style={{ textDecoration: 'none' }}
+        >
+          <MenuItem
+            onClick={() => {
+              popover.onClose();
+            }}
+          >
+            <Iconify icon="solar:printer-minimalistic-bold" />
+            Print
+          </MenuItem>
+        </PDFDownloadLink>
       </CustomPopover>
+      <Dialog fullScreen open={view.value}>
+        <Box sx={{ height: 1, display: 'flex', flexDirection: 'column' }}>
+          <DialogActions
+            sx={{
+              p: 1.5,
+            }}
+          >
+            <Button color="inherit" variant="contained" onClick={view.onFalse}>
+              Close
+            </Button>
+          </DialogActions>
+
+          <Box sx={{ flexGrow: 1, height: 1, overflow: 'hidden' }}>
+            <PDFViewer width="100%" height="100%" style={{ border: 'none' }}>
+              <InvoicePDF
+                invoice={invoice}
+                services={services}
+                selectStaff={selectStaff}
+                filters={filters}
+              />
+            </PDFViewer>
+          </Box>
+        </Box>
+      </Dialog>
     </>
   );
 }

@@ -92,7 +92,7 @@ const useStyles = () =>
 
 // ----------------------------------------------------------------------
 
-export default function InvoicePDF({ invoice, selectService, staffs, filters }) {
+export default function InvoicePDF({ invoice, selectStaff, services, filters }) {
   // const {
   //   items,
   //   taxes,
@@ -116,7 +116,7 @@ export default function InvoicePDF({ invoice, selectService, staffs, filters }) 
           <Image source="/logo/logo.png" style={{ width: 48, height: 48 }} />
 
           <View style={{ alignItems: 'flex-end', flexDirection: 'column' }}>
-            <Text style={[styles.h4]}>{selectService.name}</Text>
+            <Text style={[styles.h4]}>{selectStaff.name}</Text>
             {filters.startDate && (
               <Text>
                 {format(filters.startDate, 'dd MMM yyyy')}-{format(filters.endDate, 'dd MMM yyyy')}
@@ -163,7 +163,7 @@ export default function InvoicePDF({ invoice, selectService, staffs, filters }) 
               </View>
 
               <View style={styles.tableCell_2}>
-                <Text style={styles.subtitle2}>Staff</Text>
+                <Text style={styles.subtitle2}>Service</Text>
               </View>
 
               <View style={styles.tableCell_3}>
@@ -190,8 +190,7 @@ export default function InvoicePDF({ invoice, selectService, staffs, filters }) 
 
           <View>
             {invoice.map((item, index) => {
-              const staff = staffs.find((staff) => staff.id === item.staff_id);
-              const salary = (item.work_time * (staff.salary || 0)) / 3600000;
+              const service = services.find((service) => service.id === item.site_id);
               return (
                 <View style={styles.tableRow} key={item.id}>
                   <View style={styles.tableCell_1}>
@@ -199,7 +198,7 @@ export default function InvoicePDF({ invoice, selectService, staffs, filters }) 
                   </View>
 
                   <View style={styles.tableCell_2}>
-                    <Text style={styles.subtitle2}>{item.name}</Text>
+                    <Text style={styles.subtitle2}>{service.name}</Text>
                   </View>
 
                   <View style={styles.tableCell_3}>
