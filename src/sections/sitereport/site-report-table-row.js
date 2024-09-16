@@ -16,8 +16,6 @@ import ListItemText from '@mui/material/ListItemText';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
-import { fCurrency } from 'src/utils/format-number';
-
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
@@ -35,6 +33,7 @@ export default function SiteReportTableRow({
   row,
   index,
   selected,
+  onEditRow,
   onViewRow,
   onSelectRow,
   onDeleteRow,
@@ -280,12 +279,22 @@ export default function SiteReportTableRow({
 
         <MenuItem
           onClick={() => {
-            onViewRow();
+            onEditRow();
             popover.onClose();
           }}
         >
           <Iconify icon="solar:pen-bold" />
           Edit
+        </MenuItem>
+
+        <MenuItem
+          onClick={() => {
+            onViewRow();
+            popover.onClose();
+          }}
+        >
+          <Iconify icon="solar:eye-bold" />
+          View
         </MenuItem>
       </CustomPopover>
 

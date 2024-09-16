@@ -189,9 +189,16 @@ export default function SiteReportListView() {
     setFilters(defaultFilters);
   }, []);
 
-  const handleViewRow = useCallback(
+  const handleEditRow = useCallback(
     (id) => {
       router.push(paths.dashboard.sitereport.edit(id));
+    },
+    [router]
+  );
+
+  const handleViewRow = useCallback(
+    (id) => {
+      router.push(paths.dashboard.sitereport.details(id));
     },
     [router]
   );
@@ -354,6 +361,7 @@ export default function SiteReportListView() {
                         selected={table.selected.includes(row.id)}
                         onSelectRow={() => table.onSelectRow(row.id)}
                         onDeleteRow={() => setRefresh(new Date().getTime())}
+                        onEditRow={() => handleEditRow(row.id)}
                         onViewRow={() => handleViewRow(row.id)}
                       />
                     ))}

@@ -1,17 +1,17 @@
 import PropTypes from 'prop-types';
 
-import ServiceDetailsView from 'src/sections/services/view/service-details-view';
+import { SiteReportDetailsView } from 'src/sections/sitereport/view';
 
 // ----------------------------------------------------------------------
 
 export const metadata = {
-  title: 'Dashboard: Service Details',
+  title: 'Dashboard: Report Details',
 };
 
 export default function ServiceDetailsPage({ params }) {
   const { id } = params;
 
-  return <ServiceDetailsView id={id} />;
+  return <SiteReportDetailsView id={id} />;
 }
 
 ServiceDetailsPage.propTypes = {

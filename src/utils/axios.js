@@ -4,7 +4,7 @@ import { HOST_API, OFFLINE_API } from 'src/config-global';
 
 // ----------------------------------------------------------------------
 
-const axiosInstance = axios.create({ baseURL: HOST_API });
+const axiosInstance = axios.create({ baseURL: OFFLINE_API });
 
 axiosInstance.interceptors.response.use(
   (res) => res,
@@ -45,6 +45,7 @@ export const endpoints = {
     delete: '/api/v1/server/report/delete',
     create: '/api/v1/server/report/add_track',
     gettrack: '/api/v1/server/report/get_track',
+    getlocation: '/api/v1/server/report/get_locations',
   },
   company: {
     create: '/api/v1/server/company/create',

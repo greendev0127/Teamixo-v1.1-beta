@@ -1,14 +1,13 @@
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 import { useMemo, useCallback, useState, useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import Switch from '@mui/material/Switch';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -21,11 +20,8 @@ import { fData } from 'src/utils/format-number';
 
 import { countries } from 'src/assets/data';
 
-import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
-import { useSnackbar } from 'src/components/snackbar';
 import FormProvider, {
-  RHFSwitch,
   RHFTextField,
   RHFUploadAvatar,
   RHFAutocomplete,

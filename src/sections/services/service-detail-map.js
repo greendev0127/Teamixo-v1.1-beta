@@ -1,4 +1,3 @@
-import { Button } from '@mui/material';
 import { GoogleMap, useLoadScript, MarkerF } from '@react-google-maps/api';
 import { useEffect, useState } from 'react';
 import { GOOGLE_MAP_API } from 'src/config-global';

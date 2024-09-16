@@ -23,6 +23,7 @@ export const paths = {
       root: `${ROOTS.DASHBOARD}/sitereport`,
       create: `${ROOTS.DASHBOARD}/sitereport/create`,
       edit: (id) => `${ROOTS.DASHBOARD}/sitereport/${id}/edit`,
+      details: (id) => `${ROOTS.DASHBOARD}/sitereport/${id}`,
     },
     staffreport: {
       root: `${ROOTS.DASHBOARD}/staffreport`,

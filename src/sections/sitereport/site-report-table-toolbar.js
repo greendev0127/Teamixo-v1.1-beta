@@ -142,7 +142,6 @@ export default function SiteReportTableToolbar({
           </Button>
         )}
       </Stack>
-      {console.log(filters)}
 
       <CustomPopover
         open={popover.open}
