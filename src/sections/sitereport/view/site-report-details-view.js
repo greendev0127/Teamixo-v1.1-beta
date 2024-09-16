@@ -29,7 +29,6 @@ export default function SiteReportDetailsView({ id }) {
 
       async function getLocationData() {
         const locationData = await axiosInstance.post(endpoints.report.getlocation, { id });
-        console.log(locationData);
         setLocations(locationData.data.Item.locations);
       }
 

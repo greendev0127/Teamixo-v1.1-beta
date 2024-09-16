@@ -201,8 +201,6 @@ export default function ServiceNewEditForm({ currentService }) {
         lng: serviceInfo.lng,
       };
 
-      console.log(updateServiceParams);
-
       const response = await axiosInstance.post(endpoints.services.update, updateServiceParams);
 
       setNotification({

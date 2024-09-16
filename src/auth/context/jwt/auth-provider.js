@@ -112,8 +112,6 @@ export function AuthProvider({ children }) {
 
     const { token, accessToken, user } = response.data;
 
-    console.log('user ===========>', user);
-
     setSession(token);
 
     dispatch({

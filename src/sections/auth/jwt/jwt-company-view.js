@@ -89,7 +89,6 @@ export default function JwtCompanyView({ setRegisterStep, setCompanyData }) {
     event.preventDefault();
 
     if (validationCheck(email, companyName, country)) {
-      console.log('false');
       return;
     }
 

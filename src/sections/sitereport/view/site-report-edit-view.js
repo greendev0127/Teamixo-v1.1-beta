@@ -44,7 +44,7 @@ export default function SiteReportEditView({ id }) {
         loading.onTrue();
         const getTrackParams = {
           table_name: `record_${organizationId}`,
-          track_id: Number(id),
+          track_id: id,
         };
 
         const response = await axiosInstance.post(endpoints.report.gettrack, getTrackParams);

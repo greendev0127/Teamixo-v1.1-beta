@@ -54,8 +54,8 @@ const STATUS_OPTIONS = [{ value: 'all', label: 'All' }, ...REPORT_STATUS_OPTIONS
 const TABLE_HEAD = [
   { id: 'no', label: 'No', width: 80 },
   { id: 'name', label: 'Customer' },
-  { id: 'totalQuantity', label: 'Start Time', width: 120, align: 'center' },
-  { id: 'totalAmount', label: 'End Time', width: 140 },
+  { id: 'start_time', label: 'Start Time', width: 140 },
+  { id: 'end_time', label: 'End Time', width: 140 },
   { id: 'work_time', label: 'Work Time', width: 140 },
   { id: 'break_time', label: 'Break Time', width: 140 },
   { id: 'status', label: 'Status', width: 110 },
@@ -345,7 +345,6 @@ export default function SiteReportListView() {
                     )
                   }
                 />
-
                 <TableBody>
                   {dataFiltered
                     .slice(
